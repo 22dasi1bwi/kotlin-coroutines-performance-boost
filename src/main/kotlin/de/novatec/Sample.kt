@@ -11,8 +11,8 @@ class Sample(
 ) {
 
     suspend operator fun invoke(): Set<SystemResult> {
+        val systemsToCall: List<SystemCall> = systemLoader.findAll()
         val callsToPerform = supervisorScope {
-            val systemsToCall: List<SystemCall> = systemLoader.findAll()
             systemsToCall.map {
                 async {
                     handler.performHttpCall(it)
